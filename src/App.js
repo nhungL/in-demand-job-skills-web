@@ -1,48 +1,63 @@
-import logo from './logo.svg';
 import './App.css';
-import { useQuery, gql } from '@apollo/client';
-
-const GET_ALL_JOBS = gql`
-  query getAllJobs {
-    getAllJobs{
-        id
-        title
-        skills
-    }
-  }
-`;
-
-function DisplayJobs() {
-  const { loading, error, data } = useQuery(GET_ALL_JOBS);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
-  return data.getAllJobs.map((job) => (
-    <div key={job.id}>
-      <h3>{job.title}</h3>
-      <br />
-      <p>Skills: {job.skills.join(', ')}</p>
-      <br />
-    </div>
-  ));
-}
+import {
+    BrowserRouter as Router,
+    createBrowserRouter,
+    createRoutesFromElements,
+    Link, Outlet,
+    Route, RouterProvider,
+    Routes
+} from 'react-router-dom';
+import {AllJobs} from "./components/AllJobs";
+import {Job} from "./components/Job";
 
 function App() {
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/" element={<Root/>}>
+                <Route exact path="/api/all-jobs" element={<AllJobs/>}/>
+                <Route exact path='/api/all-jobs/{id}' element={<Job id={8}/>}/>
+            </Route>
+        )
+    );
+    return (
+        <div className="App">
+            <RouterProvider router={router}/>
+        </div>
+    );
+}
+
+const Root = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>My first Apollo app 🚀</h2>
-        </a>
-        <DisplayJobs />
-      </header>
-    </div>
+      <div>
+          <div className="App-header">
+              <h3>IN-DEMAND SKILLS IN TECH</h3>
+          </div>
+
+          <div className="container">
+              <div className="menu">
+                  <ul className="menu-list">
+                      <li>
+                          <Link to="/api/all-jobs">Jobs Summary</Link>
+                      </li>
+                      <li>
+                          <Link to='/api/all-jobs/{id}'>Skills Ranking</Link>
+                      </li>
+                      <li>
+                          <Link to='/api/all-jobs/{id}'>Salary Ranking</Link>
+                      </li>
+                  </ul>
+              </div>
+
+              <div className="job-content">
+                  <Outlet/>
+              </div>
+          </div>
+
+          <div className="App-footer">
+              ---------FOOTER---------
+          </div>
+
+      </div>
   );
 }
 
