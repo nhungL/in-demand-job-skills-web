@@ -15,7 +15,18 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-footer {
+  background-color: #282c34;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +46,57 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.container {
+  width: auto;
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 1rem 4rem;
+}
+
+.menu {
+
+}
+
+.menu-list {
+  border-right: 0.3rem solid #ebf2f2;
+  padding-right: 1rem;
+}
+
+.menu-list li {
+  list-style-type: none;
+  padding: 1rem;
+}
+
+.menu-list li a {
+  text-decoration: none;
+  background-color: transparent;
+  font-size: 1.2rem;
+  color: black;
+}
+
+.job-title {
+
+}
+
+.job-content {
+  padding: 1rem;
+}
+
+.table-container {
+  height: 60vh;
+}
+
+.table-header {
+  border: 0.1rem solid #282c34;
+  padding: 0.5rem;
+  font-size: medium;
+}
+
+.table-body {
+  border: 0.1rem solid #282c34;
+  padding: 0.5rem;
+  font-size: small;
 }
